@@ -1,0 +1,8 @@
+type Team{
+    id: ID!
+    name: String
+    capacity: Int
+    isDeleted: Boolean
+    createdDate: DateTime
+    updateDate: DateTime
+}

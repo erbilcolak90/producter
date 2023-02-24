@@ -1,0 +1,36 @@
+
+type Query{
+    getPlayerById(playerId: String!): ResultForPlayer
+    getAllPlayers(paginationInput: Pagination):[Player]
+    getPlayersByTeamId(paginationInput: Pagination, teamId: String): [Player]
+
+    getTeamById(teamId: String): ResultForTeam
+    getAllTeams(paginationInput: Pagination):[Team]
+
+    getUserRolesByUserId(userId: String): [String]
+    getRoleIdByRoleName(roleName: String): String
+
+    getUserById(userId: String): ResultForUser
+
+}
+
+type Mutation{
+    createPlayer(playerInput: PlayerInput): ResultForPlayer
+    deletePlayerById(playerId: String! ): ResultForString
+    updatePlayerTeam(playerId: String! , teamId: String! ): ResultForPlayer
+    updatePlayer(updatePlayerInput: UpdatePlayerInput): ResultForPlayer
+
+    createTeam(teamInput: TeamInput): ResultForTeam
+    deleteTeamById(teamId: String): ResultForString
+    updateTeam(updateTeamInput: UpdateTeamInput): ResultForTeam
+
+    login(loginInput: LoginInput ): ResultForString
+    logout(token: String):Boolean
+    signUp(userInput: UserInput): ResultForString
+
+    addRoleToUser(userId: String , roleName: String): ResultForString
+
+    createRole(roleName: String): ResultForString
+
+}
+

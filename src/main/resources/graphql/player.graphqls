@@ -1,0 +1,12 @@
+scalar DateTime
+
+type Player{
+    id: ID
+    name: String
+    surname: String
+    position: PositionName
+    teamId: String
+    isDeleted: Boolean
+    createdDate: DateTime
+    updateDate: DateTime
+}

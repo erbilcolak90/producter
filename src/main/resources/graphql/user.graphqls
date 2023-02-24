@@ -1,0 +1,8 @@
+type User{
+    id: ID!
+    username: String!
+    email: String
+    isDeleted: Boolean
+    createdDate: DateTime
+    updateDate: DateTime
+}

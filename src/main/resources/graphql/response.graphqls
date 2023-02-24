@@ -1,0 +1,28 @@
+interface Response{
+    message: String!
+    status: Boolean!
+}
+
+type ResultForString implements Response{
+    message: String!
+    status: Boolean!
+    result: String
+}
+
+type ResultForPlayer implements Response{
+    message: String!
+    status: Boolean!
+    result: Player
+}
+
+type ResultForTeam implements Response{
+    message: String!
+    status: Boolean!
+    result: Team
+}
+
+type ResultForUser implements Response{
+    message: String!
+    status: Boolean!
+    result : User
+}

@@ -1,0 +1,48 @@
+input PlayerInput{
+    name: String
+    surname: String
+    position: PositionName
+    teamId: String
+}
+
+input UpdatePlayerInput{
+    id: ID
+    name: String
+    surname: String
+    position: PositionName
+}
+
+input TeamInput{
+    name: String
+    capacity: Int
+}
+
+input UpdateTeamInput{
+    id: ID
+    name: String
+    capacity: Int
+}
+
+input UserInput{
+    id:ID
+    username: String
+    email: String
+    password: String
+}
+
+input LoginInput{
+    username: String!
+    password: String!
+}
+
+input Pagination{
+    page: Int
+    size: Int
+    fieldName: String
+    sortBy: SortBy
+}
+
+enum SortBy{
+    ASC,
+    DESC
+}
