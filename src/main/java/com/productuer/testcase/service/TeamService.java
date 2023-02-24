@@ -1,11 +1,15 @@
 package com.productuer.testcase.service;
 
+import com.productuer.testcase.controller.AuthController;
 import com.productuer.testcase.entities.Team;
 import com.productuer.testcase.inputs.PaginationInput;
 import com.productuer.testcase.inputs.TeamInput;
 import com.productuer.testcase.inputs.UpdateTeamInput;
 import com.productuer.testcase.repository.TeamRepository;
 import com.productuer.testcase.result.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class TeamService {
 
     private TeamRepository teamRepository;
+
+    private Logger logger = LoggerFactory.getLogger(TeamService.class);
 
     @Autowired
     public TeamService(TeamRepository teamRepository) {
@@ -47,6 +54,7 @@ public class TeamService {
 
         Team existTeam = teamRepository.findByName(teamInput.getName());
         if (existTeam != null) {
+            logger.error("team not created");
             return new Result<>("Team name is already exist", false, null);
         } else {
             team.setName(teamInput.getName());
@@ -59,6 +67,8 @@ public class TeamService {
 
             teamRepository.save(team);
 
+            logger.info("team created");
+
             return new Result<>("Success", true, team);
         }
 
@@ -69,11 +79,13 @@ public class TeamService {
     public Result<Team> updateTeam(UpdateTeamInput updateTeamInput) {
         Team team = teamRepository.findById(updateTeamInput.getId()).orElse(null);
         if (team == null) {
+            logger.error("team not found");
             return new Result<>("Team not found", false, null);
         }
 
         Team existTeam = teamRepository.findByName(updateTeamInput.getName());
         if (existTeam != null) {
+            logger.error("team not update");
             return new Result<>("Team is already exist", false, null);
         }
         if (updateTeamInput.getName() != null || !updateTeamInput.getName().isEmpty()) {
@@ -87,6 +99,9 @@ public class TeamService {
         team.setUpdateDate(offsetDateTime);
 
         teamRepository.save(team);
+
+        logger.info(updateTeamInput.getName() + " team updated");
+
 
         return new Result<>("Success", true, team);
     }

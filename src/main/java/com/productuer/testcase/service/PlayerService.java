@@ -8,6 +8,9 @@ import com.productuer.testcase.inputs.UpdatePlayerInput;
 import com.productuer.testcase.repository.PlayerRepository;
 import com.productuer.testcase.repository.TeamRepository;
 import com.productuer.testcase.result.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +23,7 @@ import java.time.OffsetDateTime;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class PlayerService {
 
@@ -27,6 +31,7 @@ public class PlayerService {
     private TeamService teamService;
     private TeamRepository teamRepository;
 
+    private Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
     @Autowired
     public PlayerService(PlayerRepository playerRepository, TeamService teamService, TeamRepository teamRepository) {
@@ -59,6 +64,8 @@ public class PlayerService {
 
     @Transactional
     public Result<Player> createPlayer(PlayerInput playerInput) {
+        logger.info("create player method triggered");
+
         Player player = new Player();
         Page<Player> playerList = playerRepository.findPlayersByTeamId(playerInput.getTeamId(), Pageable.unpaged());
         Team team = teamRepository.findById(playerInput.getTeamId()).orElse(null);
@@ -73,6 +80,8 @@ public class PlayerService {
             player.setUpdateDate(offsetDateTime);
             player.setId(UUID.randomUUID().toString());
             playerRepository.save(player);
+
+            logger.info("user created");
 
             return new Result<>("Success", true, player);
 
@@ -98,6 +107,9 @@ public class PlayerService {
             player.setUpdateDate(offsetDateTime);
 
             playerRepository.save(player);
+
+            logger.info("player updated");
+
             return new Result<>("Success", true, player);
         } else {
             return new Result<>("Failure", false, null);
@@ -121,6 +133,8 @@ public class PlayerService {
 
         playerRepository.save(player);
 
+        logger.info("player team is updated");
+
         return new Result<>("Success", true, player);
     }
 
@@ -132,6 +146,8 @@ public class PlayerService {
             OffsetDateTime offsetDateTime = OffsetDateTime.now();
             player.setUpdateDate(offsetDateTime);
             playerRepository.save(player);
+
+            logger.info(playerId+" User deleted");
 
             return new Result<>("Player deleted", true, null);
 

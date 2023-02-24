@@ -5,6 +5,9 @@ import com.productuer.testcase.inputs.LoginInput;
 import com.productuer.testcase.inputs.UserInput;
 import com.productuer.testcase.result.Result;
 import com.productuer.testcase.service.CustomUserService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -16,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 
-
+@Slf4j
 @Controller
 public class AuthController {
 
@@ -29,6 +32,8 @@ public class AuthController {
     @Autowired
     private CustomUserService customUserService;
 
+    private Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @MutationMapping
     @PreAuthorize("isAnonymous()")
     @Transactional
@@ -36,6 +41,8 @@ public class AuthController {
             if(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginInput.getUsername(),loginInput.getPassword())) !=null){
                 String token = tokenManager.generateToken(loginInput.getUsername());
                 String userId = tokenManager.parseUserIdFromToken(token);
+
+                logger.info(userId +" user login");
 
                 return new Result<>("Success", true, token);
             }
@@ -50,7 +57,10 @@ public class AuthController {
     public boolean logout(@Argument String token){
 
         if(tokenManager.tokenValidate(token)){
+            String userId = tokenManager.parseUserIdFromToken(token);
             tokenManager.logout(token);
+
+            logger.info(userId +" user logout");
             return true;
         }else{
             return false;
