@@ -1,5 +1,6 @@
 package com.producter.testcase.controller;
 
+import com.producter.testcase.result.Result;
 import com.producter.testcase.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -26,7 +27,7 @@ public class RoleController {
 
     @MutationMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public String createRole(@Argument String roleName) {
+    public Result<String> createRole(@Argument String roleName) {
         return roleService.createRole(roleName);
     }
 }

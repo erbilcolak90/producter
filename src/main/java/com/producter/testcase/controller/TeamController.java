@@ -37,18 +37,21 @@ public class TeamController {
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Result<Team> createTeam(@Argument TeamInput teamInput){
         Result<Team> result = teamService.createTeam(teamInput);
         return new Result<>(result.getMessage(), result.isStatus(), result.getResult());
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Result<Team> updateTeam(@Argument UpdateTeamInput updateTeamInput){
         Result<Team> result = teamService.updateTeam(updateTeamInput);
         return new Result<>(result.getMessage(), result.isStatus(), result.getResult());
     }
 
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Result<String> deleteTeamById(@Argument String teamId){
         Result<String> result = teamService.deleteTeamById(teamId);
         return new Result<>(result.getMessage(), result.isStatus(), result.getResult());

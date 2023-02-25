@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,7 +82,7 @@ public class PlayerService {
             player.setId(UUID.randomUUID().toString());
             playerRepository.save(player);
 
-            logger.info("user created");
+            logger.info("user created by Id:  " + SecurityContextHolder.getContext().getAuthentication().getName());
 
             return new Result<>("Success", true, player);
 
@@ -108,7 +109,7 @@ public class PlayerService {
 
             playerRepository.save(player);
 
-            logger.info("player updated");
+            logger.info("user updated by Id:  " + SecurityContextHolder.getContext().getAuthentication().getName());
 
             return new Result<>("Success", true, player);
         } else {
@@ -133,7 +134,7 @@ public class PlayerService {
 
         playerRepository.save(player);
 
-        logger.info("player team is updated");
+        logger.info("Player team updated by Id:  " + SecurityContextHolder.getContext().getAuthentication().getName());
 
         return new Result<>("Success", true, player);
     }
@@ -147,7 +148,7 @@ public class PlayerService {
             player.setUpdateDate(offsetDateTime);
             playerRepository.save(player);
 
-            logger.info(playerId+" User deleted");
+            logger.info("Player deleted by Id:  " + SecurityContextHolder.getContext().getAuthentication().getName());
 
             return new Result<>("Player deleted", true, null);
 

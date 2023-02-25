@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,7 +67,7 @@ public class TeamService {
 
             teamRepository.save(team);
 
-            logger.info("team created");
+            logger.info("Team created by Id : " + SecurityContextHolder.getContext().getAuthentication().getName());
 
             return new Result<>("Success", true, team);
         }
@@ -78,13 +79,11 @@ public class TeamService {
     public Result<Team> updateTeam(UpdateTeamInput updateTeamInput) {
         Team team = teamRepository.findById(updateTeamInput.getId()).orElse(null);
         if (team == null) {
-            logger.error("team not found");
             return new Result<>("Team not found", false, null);
         }
 
         Team existTeam = teamRepository.findByName(updateTeamInput.getName());
         if (existTeam != null) {
-            logger.error("team not update");
             return new Result<>("Team is already exist", false, null);
         }
         if (updateTeamInput.getName() != null || !updateTeamInput.getName().isEmpty()) {
@@ -99,7 +98,7 @@ public class TeamService {
 
         teamRepository.save(team);
 
-        logger.info(updateTeamInput.getName() + " team updated");
+        logger.info("Team updated by Id : " + SecurityContextHolder.getContext().getAuthentication().getName());
 
 
         return new Result<>("Success", true, team);
