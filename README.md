@@ -6,6 +6,7 @@ bunun için xampp gibi bir program kullanabilirsiniz.PhpMyAdmin üzerinden oluş
 
 
 GraphQL sorgularını göndermek için postman collectionu buradan indirebilirsiniz.
+[Postman collection u için tıklayın.zip](https://github.com/erbilcolak90/producter/files/10832191/producter.postman_collection.zip)
 
 Login sorgusunu gönderdikten sonra responstan dönen tokenı diğer sorgularda kullanmalısınız.
 
@@ -1076,6 +1077,7 @@ schema type:
 ````
 
 ---
+
 
 
 
