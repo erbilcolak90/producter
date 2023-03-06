@@ -1,16 +1,11 @@
 # Producter
  
-Projeyi bilgisayarınıza kurmak için öncelikle mysql sunucusuna ihtiyacınız var.
-bunun için xampp gibi bir program kullanabilirsiniz.PhpMyAdmin üzerinden oluşturacağınız "case" isimli veri tabanına 
-örnek database i import edin ve projeyi ayağa kaldırın.
-
+Proje içerisindeki data klasöründe örnek bir SQL tablosu mevcut.
+Docker-Desktop kullanıp
+projeyi ayağa kaldırmak için klasörün bulunduğu path e giderek, docker-compose up diyerek uygulamayı ayağa kaldırabilirsiniz.
 
 GraphQL sorgularını göndermek için postman collectionu buradan indirebilirsiniz.
 [Postman collection u için tıklayın.zip](https://github.com/erbilcolak90/producter/files/10832191/producter.postman_collection.zip)
-
-Örnek database bağlantısı
-[case-database](https://github.com/erbilcolak90/producter/files/10832194/case.1.zip)
-
 
 Login sorgusunu gönderdikten sonra responstan dönen tokenı diğer sorgularda kullanmalısınız.
 
